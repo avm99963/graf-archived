@@ -1,5 +1,3 @@
-var s, graf;
-
 function xhr(method, url, params, callback) {
   var http = new XMLHttpRequest();
   if (method == "POST") {
@@ -65,6 +63,7 @@ var dialog = {
 
     s.graph.nodes().forEach(function(n) {
       n.color = n.originalColor;
+	  n.label = n.originalLabel;
     });
 
     s.graph.edges().forEach(function(e) {
@@ -80,6 +79,13 @@ var dialog = {
   min: function() {
     document.querySelector("#dialog").style.display = "none";
     document.querySelector("#summary-dialog").style.display = "block";
+  },
+  addEdge: function() {
+	document.querySelector("#addedge-input").style.display = "block";  
+	document.querySelector("#edge-list").style.display = "none";
+	autocomplete(document.getElementById("addedge-input"), graf.nodes, "addEdge");
+	// Focus on the addEdge input bar
+	document.getElementById("addedge-input").focus();
   }
 };
 
@@ -124,6 +130,7 @@ function init() {
         s.graph.addNode({
           id: graf.nodes[i].id,
           label: graf.nodes[i].name,
+		  originalLabel: graf.nodes[i].name,
           x: graf.nodes[i].x,
           y: graf.nodes[i].y,
           size: 10,
@@ -145,32 +152,14 @@ function init() {
         var nodeId = e.data.node.id,
             toKeep = s.graph.neighbors(nodeId);
         //toKeep[nodeId] = e.data.node;
-
-        s.graph.nodes().forEach(function(n) {
-          if (toKeep[n.id] || n.id == nodeId) {
-            n.color = n.originalColor;
-          } else {
-            n.color = '#333';
-          }
-        });
-
-        s.graph.edges().forEach(function(e) {
-          if ((e.source == nodeId || e.target == nodeId) && (toKeep[e.source] || toKeep[e.target])) {
-            e.color = '#fff';
-          } else {
-            e.color = '#333';
-          }
-        });
-
-        s.refresh();
-
-        dialog.show(nodeId, toKeep);
+		clickNode(s, nodeId, toKeep);
       });
 
       document.querySelector("#quit-dialog").addEventListener("click", dialog.close);
       document.querySelector("#quit2-dialog").addEventListener("click", dialog.close);
       document.querySelector("#max-dialog").addEventListener("click", dialog.max);
       document.querySelector("#min-dialog").addEventListener("click", dialog.min);
+	  document.querySelector("#addedge-button").addEventListener("click", dialog.addEdge);
 
       document.querySelector("#zoomin").addEventListener("click", function() {
         s.camera.goTo({
@@ -185,7 +174,40 @@ function init() {
       });
 
       s.refresh();
+	  autocomplete(document.getElementById("searchInput"), graf.nodes, "search");
     });
+}
+
+function cameraGoto(nodeX, nodeY) {
+	sigma.misc.animation.camera( s.camera,
+	  { x: nodeX, y: nodeY, ratio: 1 },
+	  { duration: s.settings('animationsTime') || 300 }
+	);
+}
+
+function clickNode(s, nodeId, toKeep) {
+	s.graph.nodes().forEach(function(n) {
+          if (toKeep[n.id] || n.id == nodeId) {
+            n.color = n.originalColor;
+			n.label = n.originalLabel;
+			console.log("Hola");
+          } else {
+            n.color = '#333';
+			n.label = '';
+          }
+        });
+
+        s.graph.edges().forEach(function(e) {
+          if ((e.source == nodeId || e.target == nodeId) && (toKeep[e.source] || toKeep[e.target])) {
+            e.color = '#fff';
+          } else {
+            e.color = '#333';
+          }
+        });
+
+        s.refresh();
+
+        dialog.show(nodeId, toKeep);
 }
 
 window.addEventListener("load", init);

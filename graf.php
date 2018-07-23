@@ -22,7 +22,13 @@ if ($_POST["password"] != "forallexists") {
     <meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="manifest" href="manifest.json">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dialog.css">
+	<link rel="stylesheet" href="css/styles.css">
+      
+    <!-- Seach Bar CSS files -->  
+    <link rel="stylesheet" href="./css/modal.css"></link>
+    <link rel="stylesheet" href="./css/autocomplete.css"></link>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" />
 
@@ -33,9 +39,10 @@ if ($_POST["password"] != "forallexists") {
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
   </head>
   <body>
-    <button id="zoomin" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored"><i class="material-icons">zoom_in</i></button>
+	<button id="searchButton"class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored"><i class="material-icons">search</i></button>
+	<button id="zoomin" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored"><i class="material-icons">zoom_in</i></button>
     <button id="zoomout" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored"><i class="material-icons">zoom_out</i></button>
-
+	
     <div id="backdrop-container" style="display: none;">
       <div id="backdrop"></div>
     </div>
@@ -47,11 +54,18 @@ if ($_POST["password"] != "forallexists") {
         <ul>
           <li><b>Any:</b> <span data-fill="year"></span></li>
           <li><b>Sexe:</b> <span data-fill="sex"></span></li>
-          <li><b>ID:</b> <span data-fill="id"></span></li>
+          <li><b>ID:</b> <span data-fill="id" id="node-id"></span></li>
         </ul>
-        <h3>Arestes (<span data-fill="n-edges"></span>):</h3>
-        <ul data-fill="edges">
-        </ul>
+		<div id="addedge-box">
+			<div id="addedge-button" class="addegde-button"><h2>Afegir una nova aresta +</h2></div>
+			<div id="addedge-msg" class="addegde-msg"><h2>Aresta afegida!</h2></div>
+			<input id="addedge-input" type="text" style="display:none;">
+		</div>	
+		<div id="edge-list">
+			<h3>Arestes (<span data-fill="n-edges"></span>):</h3>
+			<ul data-fill="edges">
+			</ul>
+		</div>
       </div>
       <div id="dialog-edge" style="display: none;">
       </div>
@@ -64,11 +78,38 @@ if ($_POST["password"] != "forallexists") {
         <p><span data-fill="year"></span>, <span data-fill="sex"></span>, <span data-fill="id"></span></p>
       </div>
     </div>
+    <!-- Search Box -->
+    <div id="searchBox" class="modal">
+      <!-- Search Box Content -->
+      <div class="modal-content">
+        <span class="closeBox">&times;</span>
 
+        <div class="in-box-content">
+            <center>
+                <form autocomplete="off">
+                  <div class="autocomplete">
+                    <input id="searchInput" type="text" placeholder="Busca una persona al graf">
+                  </div>
+                </form>
+            </center>
+        </div>
+      </div>
+    </div>
+       
     <div id="graf"></div>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.0/sigma.min.js"></script>
-    <script src="js/script.js"></script>
+    <script>
+		// Initialize the graph and the sigma
+		var s, graf;
+	</script>
+	   
+    <!-- Search Bar JS files -->
+    <script src="./js/modal.js"></script>
+    <script src="./js/autocomplete.js" ></script>
+	
+	<script src="js/script.js"></script>
+	
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <!--<script src="js/service-worker.js"></script>-->
   </body>

@@ -2,13 +2,13 @@
 require_once("config.php");
 
 class write {
-  public static function do($json) {
+  public static function funct($json) {
     print_r(json_encode($json));
     exit();
   }
 
   public static function error($n, $msg) {
-    self::do(["error" => $n, "msg" => $msg]);
+    self::funct(["error" => $n, "msg" => $msg]);
   }
 }
 
