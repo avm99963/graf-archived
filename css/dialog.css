@@ -10,7 +10,7 @@
 	color: black;
 	z-index: 120;
 	overflow-y: auto;
-}
+} 
 
 #backdrop {
 	display: none;

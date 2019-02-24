@@ -1,7 +1,5 @@
 // *********** HERE STARTS dialog.js *************
 
-window.addEventListener("load", initDialog);
-
 var dialog = {
 	fill: function(data, text, html=false) {
 		var el = document.querySelectorAll("*[data-fill=\""+data+"\"]");
@@ -48,20 +46,12 @@ var dialog = {
 			e.color = e.originalColor;
 		});
 
-		if(circleMode) {
-			s.graph.nodes().forEach(function (n) {
-				n.x = n.circleX;
-				n.y = n.circleY;
-				n.size = 10;
-			});
-		}
-		else {
-			s.graph.nodes().forEach(function (n) {
-				n.x = n.originalX;
-				n.y = n.originalY;
-				n.size = 10;
-			});
-		}
+		s.graph.nodes().forEach(function (n) {
+			n.x = n.originalX;
+			n.y = n.originalY;
+			n.size = 10;
+		});
+
 		s.refresh();
 
 	},

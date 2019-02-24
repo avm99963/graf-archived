@@ -1,9 +1,11 @@
 /* ********** HERE STARTS year-list.css ****** */
+
 #year-list {
-	padding: 10px;
-	padding-top: 0px;
-	float: right;
-	position:relative;
+	padding: 16px;
+	padding-top: 0;
+	position:absolute;
+	right: 0;
+	top: 68px;
 	z-index:10;
 	display:none
 }
@@ -11,4 +13,9 @@
 #year-list-span {
 	position:relative;
 	z-index:10;
+}
+
+.custom-checkbox .mdl-checkbox__box-outline {
+	border: 2px solid rgba(0,0,0,.8)!important;
+	background-color: white!important;
 }

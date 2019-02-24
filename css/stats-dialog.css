@@ -1,0 +1,40 @@
+/* ********** HERE STARTS dialog.css ****** */
+
+#stats-dialog {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 300px;
+	height: 100%;
+	background-color: white;
+	color: black;
+	z-index: 120;
+	overflow-y: auto;
+} 
+
+.small-screen {
+	padding: 10px;
+}
+
+#ranking {
+	list-style-position: disc;
+}
+
+#stats-dialog h2 {
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+}
+
+#stats-dialog h3 {
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 0;
+}
+
+#stats-quit-dialog, #stats-quit2-dialog {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
